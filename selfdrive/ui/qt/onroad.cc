@@ -278,6 +278,10 @@ void AnnotatedCameraWidget::updateState(const UIState &s) {
   setProperty("hideDM", (cs.getAlertSize() != cereal::ControlsState::AlertSize::NONE));
   setProperty("status", s.status);
 
+  setProperty("gas_pedal", sm["carState"].getCarState().getGas());
+  setProperty("gas_cmd", sm["carState"].getCarState().getGasCmd());
+  setProperty("brake", sm["carState"].getCarState().getBrake());
+
   // update engageability/experimental mode button
   experimental_btn->updateState(s);
 
@@ -437,6 +441,25 @@ void AnnotatedCameraWidget::drawHud(QPainter &p) {
   drawText(p, rect().center().x(), 210, speedStr);
   configFont(p, "Inter", 66, "Regular");
   drawText(p, rect().center().x(), 290, speedUnit, 200);
+
+  // gas & brake
+  int width = 50;
+  float xmid = set_speed_rect.center().x() - width/2;
+  float ymid = 400;
+  float gas_pedal_percentage = gas_pedal / 4096 * 100;
+  float brake_percentage = static_cast<int>(brake) & 0x7F - 24;
+
+  p.setPen(Qt::NoPen);
+  p.setBrush(redColor());
+  p.drawRect(QRect(xmid - width/2, ymid, width * 2, 10));
+  p.drawRect(QRect(xmid + width/2, ymid - 100, 5, 210));
+
+  p.setBrush(whiteColor(255));
+  p.drawRect(xmid, ymid, width, -gas_pedal_percentage);
+  p.drawRect(xmid, ymid + 10, width, brake_percentage);
+
+  p.setBrush(greenColor(128));
+  p.drawRect(xmid, ymid, width, -gas_cmd);
 
   p.restore();
 }
