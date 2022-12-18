@@ -143,6 +143,7 @@ class CarState(CarStateBase):
         ("STANDSTILL", "PEDALS"),
         ("BRAKE_ON", "PEDALS"),
         ("BRAKE_PRESSURE", "BRAKE"),
+        ("PEDAL_BRAKE_COUNTER", "BRAKE"),
         ("GEAR", "GEAR"),
         ("DRIVER_SEATBELT", "SEATBELT"),
         ("FL", "DOORS"),
