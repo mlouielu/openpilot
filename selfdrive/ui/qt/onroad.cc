@@ -389,23 +389,26 @@ void AnnotatedCameraWidget::drawHud(QPainter &p) {
 
 
   // gas & brake
-  int width = 50;
+  int width = 150;
+  float scale = 2.7;
   float xmid = set_speed_rect.center().x() - width/2;
-  float ymid = 400;
+  float ymid = 600;
   float gas_pedal_percentage = gas_pedal / 4096 * 100;
   float brake_percentage = static_cast<int>(brake) & 0x7F - 24;
 
   p.setPen(Qt::NoPen);
   p.setBrush(redColor());
-  p.drawRect(QRect(xmid - width/2, ymid, width * 2, 10));
-  p.drawRect(QRect(xmid + width/2, ymid - 100, 5, 210));
+  p.drawRect(QRect(xmid - width/4, ymid, width * 1.5, 10));
+  p.drawRect(QRect(xmid + width/2, ymid - 100 * scale, 5, (100 * scale) * 2 + 10));
+  p.drawRect(QRect(xmid, ymid - 100 * scale, width, 5));
+  p.drawRect(QRect(xmid, ymid + 100 * scale + 10, width, 5));
 
   p.setBrush(whiteColor(255));
-  p.drawRect(xmid, ymid, width, -gas_pedal_percentage);
-  p.drawRect(xmid, ymid + 10, width, brake_percentage);
+  p.drawRect(xmid, ymid, width, -gas_pedal_percentage * scale);
+  p.drawRect(xmid, ymid + 10, width, brake_percentage * scale);
 
   p.setBrush(greenColor(128));
-  p.drawRect(xmid, ymid, width, -gas_cmd);
+  p.drawRect(xmid, ymid, width, -gas_cmd * scale);
 
 
   // engage-ability icon
