@@ -394,7 +394,7 @@ void AnnotatedCameraWidget::drawHud(QPainter &p) {
   float xmid = set_speed_rect.center().x() - width/2;
   float ymid = 600;
   float gas_pedal_percentage = gas_pedal / 4096 * 100;
-  float brake_percentage = static_cast<int>(brake) & 0x7F - 24;
+  float brake_percentage = brake;
 
   p.setPen(Qt::NoPen);
   p.setBrush(redColor());
