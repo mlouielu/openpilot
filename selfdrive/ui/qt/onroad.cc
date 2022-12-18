@@ -581,6 +581,7 @@ void AnnotatedCameraWidget::drawLaneLines(QPainter &painter, const UIState *s) {
     if (status == STATUS_OVERRIDE) {
       start_hue = 60;
       end_hue = fmax(fmin(start_hue + acc_cmd * 0.6, 148), 0);
+      end_hue = int(end_hue);
     } else {
       start_hue = 148;
       end_hue = 112;
