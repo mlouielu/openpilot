@@ -457,6 +457,11 @@ void AnnotatedCameraWidget::drawHud(QPainter &p) {
   p.drawRect(QRect(xmid, ymid - 100 * scale, width, 5));
   p.drawRect(QRect(xmid, ymid + 100 * scale + 10, width, 5));
 
+  // Gas command
+  p.setBrush(greenColor(128));
+  p.drawRect(xmid, ymid, width, -gas_cmd * scale);
+
+  // User pedal
   p.setBrush(whiteColor(255));
   p.drawRect(xmid, ymid, width, -gas_pedal_percentage * scale);
   p.drawRect(xmid, ymid + 10, width, brake_percentage * scale);
