@@ -230,6 +230,7 @@ void AnnotatedCameraWidget::updateState(const UIState &s) {
   setProperty("gas_pedal", sm["carState"].getCarState().getGas());
   setProperty("gas_cmd", sm["carState"].getCarState().getGasCmd());
   setProperty("brake", sm["carState"].getCarState().getBrake());
+  setProperty("acc_cmd", sm["carState"].getCarState().getAccCmd());
 
 
   // update engageability and DM icons at 2Hz
@@ -406,6 +407,10 @@ void AnnotatedCameraWidget::drawHud(QPainter &p) {
   // Gas command
   p.setBrush(greenColor(128));
   p.drawRect(xmid, ymid, width, -gas_cmd * scale);
+
+  // Accel command
+  p.setBrush(redColor(128));
+  p.drawRect(xmid, ymid, width / 2, -acc_cmd * scale);
 
   // User pedal
   p.setBrush(whiteColor(255));
