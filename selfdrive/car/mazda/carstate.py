@@ -66,6 +66,7 @@ class CarState(CarStateBase):
     ret.gas = cp.vl["ENGINE_DATA"]["PEDAL_GAS"]
     ret.gasCmd = cp.vl["GAS"]["GAS_CMD"]
     ret.gasPressed = ret.gas > 0
+    ret.accCmd = cp.vl["CRZ_INFO"]["ACCEL_CMD"] / 4096 * 100
 
     # Either due to low speed or hands off
     lkas_blocked = cp.vl["STEER_RATE"]["LKAS_BLOCK"] == 1
@@ -164,6 +165,7 @@ class CarState(CarStateBase):
 
       checks += [
         ("ENGINE_DATA", 100),
+        ("CRZ_INFO", 50),
         ("CRZ_CTRL", 50),
         ("CRZ_EVENTS", 50),
         ("CRZ_BTNS", 10),
