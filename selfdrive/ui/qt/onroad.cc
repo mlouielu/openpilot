@@ -459,12 +459,15 @@ void AnnotatedCameraWidget::drawHud(QPainter &p) {
   p.drawRect(QRect(xmid, ymid + 100 * scale + 10, width, 5));
 
   // Gas command
-  p.setBrush(greenColor(128));
+  p.setBrush(greenColor(200));
   p.drawRect(xmid, ymid, width, -gas_cmd * scale);
 
   // Accel command
-  p.setBrush(redColor(128));
+  p.setBrush(redColor(200));
   p.drawRect(xmid, ymid, width / 2, -acc_cmd * scale);
+  QString accStr = QString::number(std::nearbyint(acc_cmd));
+  configFont(p, "Inter", 176, "Bold");
+  drawText(p, 400, 210, accStr);
 
   // User pedal
   p.setBrush(whiteColor(255));
@@ -578,9 +581,9 @@ void AnnotatedCameraWidget::drawLaneLines(QPainter &painter, const UIState *s) {
     }
 
   } else {
-    if (status == STATUS_OVERRIDE) {
+    if (status == STATUS_ENGAGED) {
       start_hue = 60;
-      end_hue = fmax(fmin(start_hue + acc_cmd * 0.6, 148), 0);
+      end_hue = fmax(fmin(start_hue + acc_cmd * 0.6 * 3, 148), 0);
       end_hue = int(end_hue);
     } else {
       start_hue = 148;
@@ -588,7 +591,7 @@ void AnnotatedCameraWidget::drawLaneLines(QPainter &painter, const UIState *s) {
     }
 
     bg.setColorAt(0.0, QColor::fromHslF(start_hue / 360., 0.94, 0.51, 0.4));
-    bg.setColorAt(0.5, QColor::fromHslF(end_hue / 360., 1.0, 0.68, 0.35));
+    bg.setColorAt(0.3, QColor::fromHslF(end_hue / 360., 1.0, 0.68, 0.35));
     bg.setColorAt(1.0, QColor::fromHslF(end_hue / 360., 1.0, 0.68, 0.0));
   }
 
