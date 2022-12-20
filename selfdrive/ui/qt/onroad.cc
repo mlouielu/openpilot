@@ -451,6 +451,15 @@ void AnnotatedCameraWidget::drawHud(QPainter &p) {
   float gas_pedal_percentage = gas_pedal / 4096 * 100;
   float brake_percentage = brake;
 
+  if (acc_cmd < 0.0) {
+      QPolygon poly;
+      poly << QPoint(300, 80) << QPoint(300, 220) <<
+          QPoint(390, 150);
+      p.setPen(Qt::NoPen);
+      p.setBrush(redColor());
+      p.drawPolygon(poly);
+  }
+
   p.setPen(Qt::NoPen);
   p.setBrush(redColor());
   p.drawRect(QRect(xmid - width/4, ymid, width * 1.5, 10));
@@ -465,9 +474,9 @@ void AnnotatedCameraWidget::drawHud(QPainter &p) {
   // Accel command
   p.setBrush(redColor(200));
   p.drawRect(xmid, ymid, width / 2, -acc_cmd * scale);
-  QString accStr = QString::number(std::nearbyint(acc_cmd));
+  QString accStr = QString::number(std::abs(std::nearbyint(acc_cmd)));
   configFont(p, "Inter", 176, "Bold");
-  drawText(p, 400, 210, accStr);
+  drawText(p, 520, 210, accStr);
 
   // User pedal
   p.setBrush(whiteColor(255));
