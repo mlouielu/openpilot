@@ -110,6 +110,10 @@ class Uploader():
         if is_uploaded:
           continue
 
+        #skip dcamera
+        if "dcamera" in fn:
+          continue
+
         try:
           if name in self.immediate_priority:
             self.immediate_count += 1
