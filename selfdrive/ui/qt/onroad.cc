@@ -407,6 +407,13 @@ void AnnotatedCameraWidget::drawHud(QPainter &p) {
       p.drawPolygon(poly);
   }
 
+  // Brake indicator
+  if (status == STATUS_ENGAGED && brakeOn) {
+      p.setPen(Qt::NoPen);
+      p.setBrush(redColor());
+      p.drawRect(300, 250, 400, 40);
+  }
+
   p.setPen(Qt::NoPen);
   p.setBrush(redColor());
   p.drawRect(QRect(xmid - width/4, ymid, width * 1.5, 10));
