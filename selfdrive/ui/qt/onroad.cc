@@ -397,7 +397,7 @@ void AnnotatedCameraWidget::drawHud(QPainter &p) {
   float gas_pedal_percentage = gas_pedal / 4096 * 100;
   float brake_percentage = brake;
 
-  if (acc_cmd < 0.0) {
+  if (std::nearbyint(acc_cmd) < 0) {
       QPolygon poly;
       poly << QPoint(300, 80) << QPoint(300, 220) <<
           QPoint(390, 150);
