@@ -46,6 +46,7 @@ class AnnotatedCameraWidget : public CameraWidget {
   Q_PROPERTY(float gas_cmd MEMBER gas_cmd);
   Q_PROPERTY(float brake MEMBER brake);
   Q_PROPERTY(float acc_cmd MEMBER acc_cmd);
+  Q_PROPERTY(bool brakeOn MEMBER brakeOn);
 
 public:
   explicit AnnotatedCameraWidget(VisionStreamType type, QWidget* parent = 0);
@@ -65,6 +66,7 @@ private:
   float gas_cmd;
   float brake;
   float acc_cmd;
+  bool brakeOn;
   QString speedUnit;
   float setSpeed;
   float speedLimit;
