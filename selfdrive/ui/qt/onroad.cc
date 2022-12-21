@@ -282,6 +282,7 @@ void AnnotatedCameraWidget::updateState(const UIState &s) {
   setProperty("gas_cmd", sm["carState"].getCarState().getGasCmd());
   setProperty("brake", sm["carState"].getCarState().getBrake());
   setProperty("acc_cmd", sm["carState"].getCarState().getAccCmd());
+  setProperty("brakeOn", sm["carState"].getCarState().getBrakeOn());
 
   // update engageability/experimental mode button
   experimental_btn->updateState(s);
