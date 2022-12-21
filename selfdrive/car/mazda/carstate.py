@@ -57,6 +57,7 @@ class CarState(CarStateBase):
         + cp.vl["BRAKE"]["BRAKE_PRESSURE"]
         - 24
     ) / 360.0 * 100 if ret.brakePressed else 0.0
+    ret.brakeOn = cp.vl["TRACTION"]["BRAKE"]  # Including ACC braking
 
     ret.seatbeltUnlatched = cp.vl["SEATBELT"]["DRIVER_SEATBELT"] == 0
     ret.doorOpen = any([cp.vl["DOORS"]["FL"], cp.vl["DOORS"]["FR"],
@@ -151,6 +152,7 @@ class CarState(CarStateBase):
         ("BRAKE_PRESSURE", "BRAKE"),
         ("PEDAL_BRAKE_COUNTER", "BRAKE"),
         ("GEAR", "GEAR"),
+        ("BRAKE", "TRACTION"),
         ("DRIVER_SEATBELT", "SEATBELT"),
         ("FL", "DOORS"),
         ("FR", "DOORS"),
@@ -172,6 +174,7 @@ class CarState(CarStateBase):
         ("CRZ_BTNS", 10),
         ("PEDALS", 50),
         ("BRAKE", 50),
+        ("TRACTION", 50),
         ("SEATBELT", 10),
         ("DOORS", 10),
         ("GEAR", 20),
