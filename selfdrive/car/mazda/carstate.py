@@ -17,6 +17,8 @@ class CarState(CarStateBase):
     self.low_speed_alert = False
     self.lkas_allowed_speed = False
     self.lkas_disabled = False
+    self.prev_has_vehicle_lead = False
+    self.radar_contact = False
 
   def update(self, cp, cp_cam):
 
@@ -110,6 +112,14 @@ class CarState(CarStateBase):
     self.cam_laneinfo = cp_cam.vl["CAM_LANEINFO"]
     ret.steerFaultPermanent = cp_cam.vl["CAM_LKAS"]["ERR_BIT_1"] == 1
 
+    # MRCC vehicle lead
+    ret.hasVehicleLead = cp.vl["CRZ_CTRL"]["RADAR_HAS_LEAD"] == 1
+
+    # Check if it is the edge of first radar contact    ret
+    self.radar_contact = True if ret.hasVehicleLead and not self.prev_has_vehicle_lead else False
+    ret.radarContact = self.radar_contact
+    self.prev_has_vehicle_lead = ret.hasVehicleLead
+
     return ret
 
   @staticmethod
@@ -164,6 +174,7 @@ class CarState(CarStateBase):
         ("CTR", "CRZ_BTNS"),
         ("LEFT_BS1", "BSM"),
         ("RIGHT_BS1", "BSM"),
+        ("RADAR_HAS_LEAD", "CRZ_CTRL"),
       ]
 
       checks += [
