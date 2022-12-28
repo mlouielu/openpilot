@@ -232,6 +232,7 @@ void AnnotatedCameraWidget::updateState(const UIState &s) {
   setProperty("brake", sm["carState"].getCarState().getBrake());
   setProperty("acc_cmd", sm["carState"].getCarState().getAccCmd());
   setProperty("brakeOn", sm["carState"].getCarState().getBrakeOn());
+  setProperty("hasVehicleAhead", sm["carState"].getCarState().getHasVehicleAhead());
 
 
   // update engageability and DM icons at 2Hz
@@ -661,7 +662,8 @@ void AnnotatedCameraWidget::paintGL() {
 
     drawLaneLines(painter, s);
 
-    if (s->scene.longitudinal_control) {
+    // If MRCC detect vehicle ahead, also draw the lead
+    if (s->scene.longitudinal_control || hasVehicleAhead) {
       const auto leads = model.getLeadsV3();
       if (leads[0].getProb() > .5) {
         drawLead(painter, leads[0], s->scene.lead_vertices[0]);
