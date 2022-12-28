@@ -945,4 +945,12 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
     ET.NO_ENTRY: NoEntryAlert("LKAS Disabled"),
   },
 
+  EventName.radarContact: {
+    ET.WARNING: Alert(
+      "Radar Contact",
+      "",
+      AlertStatus.normal, AlertSize.small,
+      Priority.LOW, VisualAlert.none, AudibleAlert.promptRepeat, 1.5, alert_rate=.75),
+  }
+
 }
