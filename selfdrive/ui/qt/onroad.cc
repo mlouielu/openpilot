@@ -283,6 +283,7 @@ void AnnotatedCameraWidget::updateState(const UIState &s) {
   setProperty("brake", sm["carState"].getCarState().getBrake());
   setProperty("acc_cmd", sm["carState"].getCarState().getAccCmd());
   setProperty("brakeOn", sm["carState"].getCarState().getBrakeOn());
+  setProperty("hasVehicleLead", sm["carState"].getCarState().getHasVehicleLead());
 
   // update engageability/experimental mode button
   experimental_btn->updateState(s);
@@ -752,7 +753,8 @@ void AnnotatedCameraWidget::paintGL() {
 
     drawLaneLines(painter, s);
 
-    if (s->scene.longitudinal_control) {
+    // If MRCC detect vehicle ahead, also draw the lead
+    if (s->scene.longitudinal_control || hasVehicleLead) {
       auto lead_one = radar_state.getLeadOne();
       auto lead_two = radar_state.getLeadTwo();
       if (lead_one.getStatus()) {
