@@ -3,13 +3,15 @@
   url = ../../commaai/panda.git
 [submodule "opendbc"]
   path = opendbc
-  url = ../../commaai/opendbc.git
+	url = git@github.com:mlouielu/opendbc.git
+	branch = dev-louie
 [submodule "laika_repo"]
   path = laika_repo
   url = ../../commaai/laika.git
 [submodule "cereal"]
   path = cereal
-  url = ../../commaai/cereal.git
+	url = git@github.com:mlouielu/cereal.git
+	branch = dev-louie
 [submodule "rednose_repo"]
   path = rednose_repo
   url = ../../commaai/rednose.git
