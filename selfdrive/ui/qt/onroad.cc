@@ -468,7 +468,7 @@ void AnnotatedCameraWidget::drawHud(QPainter &p) {
   p.setBrush(redColor(200));
   p.drawRect(xmid, ymid, width / 2, -acc_cmd * scale);
   QString accStr = QString::number(std::abs(std::nearbyint(acc_cmd)));
-  configFont(p, "Inter", 176, "Bold");
+  p.setFont(InterFont(176, QFont::Bold));
   drawText(p, 520, 210, accStr);
 
   // User pedal
